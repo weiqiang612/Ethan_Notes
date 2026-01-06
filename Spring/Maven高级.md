@@ -27,7 +27,7 @@
 
         * 自定义属性，可以通过 <properties>标签，指定相应的依赖的版本号，之后直接通过${}引用即可
 
-          ![](assets/自定义属性.jpg)
+          ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/自定义属性.jpg)
 
    2. 聚合：将多个模块组织成一个整体，同时进行项目构建
 
@@ -61,14 +61,14 @@
 
    1. 介绍
 
-      ![](assets/私服.jpg)
+      ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/私服.jpg)
 
       * 依赖查找顺序：本地仓库 -> 私服 -> 中央仓库
       * 注意：私服在企业项目开发中，一个项目/公司，只需要一台即可
 
    2. 资源上传与下载
 
-      ![](assets/私服资源上传与下载.jpg)
+      ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/私服资源上传与下载.jpg)
 
       * 步骤 （在Maven的conf配置文件中改）
 

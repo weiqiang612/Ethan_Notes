@@ -222,7 +222,7 @@
 >
 >3. **拦截器执行流程**
 >
-> <img src="assets/拦截器执行流程.jpg" style="zoom:100%;" />
+> <img src="https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/拦截器执行流程.jpg" style="zoom:100%;" />
 >
 >4.  **Filter与Interceptor区别**
 >

@@ -54,7 +54,7 @@
      * @ConditionalOnMissingBean：判断环境中有无对应的bean（类型 或 名称），才注册 bean 到 IOC 容器
      * @ConditionalOnProperty：判断配置文件中有无对应的属性和值，才注册 bean 到 IOC 容器
 
-     ![](assets/Conditional.jpg)
+     ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/Conditional.jpg)
 
 4. 自动配置源码跟踪
 
@@ -144,11 +144,11 @@
 
 ​	我们看一眼提到的两个文件
 
-​	![](assets/SpringBoot配置类.jpg)	
+​	![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/SpringBoot配置类.jpg)	
 
 ​	发现该文件下都是以 AutoConfiguration 结尾的，其实这些都是配置类，我们可以查看其中一个配置类
 
-![](assets/配置文件.jpg)
+![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/配置文件.jpg)
 
 ​	如 CacheAutoConfiguration 类， 点进去 @AutoConfiguration 注解，发现其被 @Configuration 注解修饰，该类是配置类，所以导入时，会将其所有的 @Bean 导入，这就解释了整个 SpringBoot 自动配置的流程
 
@@ -177,5 +177,5 @@ public class CacheAutoConfiguration {
 
 ​	总结一下，SpringBoot自动配置的原理，大致是通过 @SpringBootApplication 注解的 @EnableAutoConfiguraion 注解，该注解被@Import注解修饰，@Import注解的参数为一个实现了 ImportSelector 接口的类，通过其重写的 selectImports 方法，规定导入那些配置类，通过 @Conditional 注解进行条件匹配，从而这些配置类的所有满足条件的 @Bean 都会被 IOC 接管，我们在程序中也可以直接注入了。顺带一提，这些配置类是从依赖的Spring jar包的两个文件中写好的，以下为流程图
 
-​	![](assets/自动配置流程图.jpg)
+​	![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/自动配置流程图.jpg)
 

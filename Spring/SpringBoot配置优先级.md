@@ -10,6 +10,6 @@
 
      命令行参数的优先级更高一些
 
-     ![](assets/系统变量、命令行参数.jpg)
+     ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/系统变量、命令行参数.jpg)
 
 3. 总体优先级为 命令行参数 > 系统变量 > yml 配置文件 > properties 配置文件

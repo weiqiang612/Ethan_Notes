@@ -85,9 +85,9 @@
 >    
 >         * execution(....) ：根据方法的签名来匹配
 >    
->           ![](assets/切入点表达式-execution.jpg)
+>           ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/切入点表达式-execution.jpg)
 >    
->           ![](assets/切入点表达式通配符.jpg)
+>           ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/切入点表达式通配符.jpg)
 >    
 >           * 注意：根据业务需要，可以使用 与（&&）、或（||）、非（!）来组合比较复杂的切入点表达式
 >           * 书写建议
@@ -103,11 +103,11 @@
 >    
 >         * 对于@Around通知，获取连接点信息只能使用 ProceedingJoinPoint
 >    
->           ![](assets/连接点1.jpg)
+>           ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/连接点1.jpg)
 >    
 >         * 对于其他四种通知，获取连接点信息只能使用JoinPoint，它是ProceedingJoinPoint的父类型
 >    
->           ![](assets/连接点2.jpg)
+>           ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/连接点2.jpg)
 >    
 >       
 
