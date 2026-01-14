@@ -186,3 +186,5 @@ DNS2=8.8.8.8
 4. 输入`passwd`，之后输入两次密码
 5. 接着输入`touch /.autorelabel`（在根目录下创建一个名为.autorelabel）的隐藏文件，应对SELinux的安全机制，防止因为修改/etc/shadow文件后，安全标签发生变化而被禁止登录
 6. 最后输入`exec /sbin/init`，等待即可（结束当前的sh进程，正式加载系统的各个服务）
+
+### Linux 组管理和权限管理
