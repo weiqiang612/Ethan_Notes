@@ -101,16 +101,14 @@
 >
 >* 过滤器一般完成一些通用的操作，比如：登录校验、统一编码处理、敏感字符处理等
 >
->* 、
->
 >* 使用：
 >
-> * 定义Filter：定义一个类，实现Filter接口，并重写其所有方法
+>* 定义Filter：定义一个类，实现Filter接口，并重写其所有方法
 >
 > * 配置Filter：Filter类上加@WebFilter注解，配置拦截资源的路径，引导类上加@ServletComponentScan开启Servlet组件支持
 >
 >    ```java
->    @WebFilter(urlPatterns = "/*")
+>   @WebFilter(urlPatterns = "/*")
 >    public class DemoFilter implements Filter {
 >        // 初始化方法，web服务器启动，创建Filter时启动，只调用一次
 >        @Override
@@ -118,9 +116,9 @@
 >    //        Filter.super.init(filterConfig);
 >            System.out.println("init 初始化方法被执行了");
 >        }
->
+> 
 >        // 拦截到请求时，调用该方法，可调用多次
->        @Override
+>       @Override
 >        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 >            // 相关拦截操作
 >            System.out.println("Filter 拦截到了请求");
@@ -130,32 +128,34 @@
 >            // 放行后逻辑
 >            System.out.println("Filter 放行了请求");
 >        }
->
+> 
 >        // 销毁方法，服务器关闭时调用，只调用一次
->        @Override
+>       @Override
 >        public void destroy() {
 >    //        Filter.super.destroy();
 >            System.out.println("destroy 销毁方法被执行了");
 >        }
 >    }
 >    ```
->
+> 
 >   注意：启动类上需要加@ServletComponentScan //开启Servlet组件支持
 >
 > * Filter拦截路径:
 >
 >   | 拦截路径     | urlPatterns值 | 含义                              |
->   | :----------- | :------------ | :-------------------------------- |
+>  | :----------- | :------------ | :-------------------------------- |
 >   | 拦截具体路径 | /login        | 只有访问/login路径时，才会被拦截  |
 >   | 目录拦截     | /emps/*       | 访问/emps下的所有资源，都会被拦截 |
 >   | 拦截所有     | /*            | 访问所有资源，都会被拦截          |
->
+> 
 > * 注意：放行后访问对应资源，资源访问完成后，还会回到Filter中执行放行后的逻辑
 >
->* 过滤器链
+> * 过滤器链
 >
-> * 介绍：一个web应用中，可以配置多个过滤器，这多个过滤器就形成了一个过滤器链
+>* 介绍：一个web应用中，可以配置多个过滤器，这多个过滤器就形成了一个过滤器链
+>
 > * 顺序：注解配置的Filter，默认优先级是按照过滤器类名（字符串）的自然排序，
+> 
 > * 注意：@webFilter注解的 urlPatten 的值只决定该过滤器是否被执行，不决定其执行的优先级
 >
 >2. **interceptor**
