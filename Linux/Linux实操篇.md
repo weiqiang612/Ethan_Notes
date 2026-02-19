@@ -109,7 +109,193 @@
 #### 1.2.2 网络配置指令
 
 1. 查看ip地址：`ifconfig / ip addr`
+
 2. ping测试主机之间的连通性
    * 基本语法：`ping 目的主机ip`
+
 3. Linux网络环境设置
-   * DHCP协议自动获取IP
+   * DHCP协议自动获取IP（默认），IP不会冲突，但是IP不固定，不适合做服务器
+
+   * 指定IP，使用静态IP，通过修改配置文件的方法，自己指定IP
+
+     * 配置静态IP
+
+       1. 到`/etc/sysconfig/network-scripts/`，修改`ifcfg-ens33[具体文件看自己的虚拟网卡是哪个]`该文件
+
+       ```
+       TYPE="Ethernet"
+       PROXY_METHOD="none"
+       BROWSER_ONLY="no"
+       BOOTPROTO="static"
+       DEFROUTE="yes"
+       IPV4_FAILURE_FATAL="no"
+       IPV6INIT="yes"
+       IPV6_AUTOCONF="yes"
+       IPV6_DEFROUTE="yes"
+       IPV6_FAILURE_FATAL="no"
+       IPV6_ADDR_GEN_MODE="stable-privacy"
+       NAME="ens33"
+       UUID="cc535551-4caa-4bef-9498-6f138559d326"
+       DEVICE="ens33"
+       ONBOOT="yes"
+       IPADDR=192.168.134.128
+       NETMASK=255.255.255.0
+       GATEWAY=192.168.134.2
+       DNS1=114.114.114.114
+       DNS2=8.8.8.8
+       ```
+
+       将BOOTPROTO[引导协议]值设置为 static ，添加手动配置的IPADDR[静态IP地址]、NETMASK[子网掩码]、GATEWAY[网关]、DNS服务器等配置
+
+       2. 重启网络服务：`sudo systemctl restart network`
+
+       3. 查看IP地址是否正确
+
+          `ip addr`
+
+          测试DNS服务是否正常
+
+          `ping www.baidu.com`
+
+          测试网关
+
+          `ping 192.168.134.2`
+
+4. 设置主机名和hosts映射
+
+   * 指令 `hostname`  ，查看主机名
+
+   * 修改主机名
+
+     * 在  `/etc/hostname` 指定
+
+   * 设置hosts映射，使得主机可以通过主机名与其他主机通信
+
+     * windows系统设置hosts映射关系：修改 `C:\Windows\System32\drivers\etc\hosts` 文件即可，加上ip及对应的主机名
+
+       ![image-20260219180123150](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260219180123150.png)
+
+     * Linux系统设置hosts映射关系：在 `/etc/hosts` 文件中指定
+
+   * 主机名解析过程分析（Hosts、DNS）
+
+     * Hosts是什么？
+
+       一个文本文件，用来记录 IP 和 主机名的映射关系
+
+     * DNS(Domain Name System的缩写)，域名系统，是互联网上作为域名和IP地址相互映射的一个分布式数据库。
+
+       当对某一个域名发起请求时，计算机首先在**浏览器缓存**中寻找该域名对应的IP地址，如果没有，就在**操作系统DNS缓存**中寻找，再没有，会查看本机的**hosts文件**，寻找该域名的IP映射，最后再没有就会去**DNS服务器**中寻找。
+
+### 1.3 进程管理
+
+#### 1.3.1 进程基本介绍
+
+1. 在Linux中，每个执行的程序都称为一个进程。每个进程都分配一个ID号（PID，进程号）
+2. 每个进程都可能以两种方式存在的，前台进程和后台进程，所谓前台进程就是用户目前的屏幕上可以进行操作的。后台进程则是系统在后台操作，后台方式执行。
+3. 一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束。
+
+#### 1.3.2 显示系统执行的进程
+
+1. 基本介绍：ps命令（process status）是用来查看目前系统中，有哪些进程正在执行，以及它们执行的状况，可以不加任何参数
+
+2. 基本语法：`ps [选项]`
+
+3. 常用选项：
+
+   * `-a` : 显示当前终端所有进程信息，侧重"人"启动的进程
+   * `-u` : 以用户的格式显示进程信息
+   * `-x` : 显示后台进程运行的参数
+   * `-e` : 显示所有进程，包含“系统”启动的进程
+   * `-f` : 全格式显示，包含UID、PPID等详细信息
+
+   注：平时使用ps命令时有两种风格，当需要看进程的父进程(PPID)时，使用`ps -ef`，其他时候使用`ps -aux`即可
+
+4. ps命令显示的信息选项
+
+   ![image-20260219185506846](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260219185506846.png)
+
+   | **列名**    | **全称**          | **意义（通俗解释）**                                         |
+   | ----------- | ----------------- | ------------------------------------------------------------ |
+   | **USER**    | User              | 该进程属于哪个用户（谁运行的）。                             |
+   | **PID**     | Process ID        | **进程 ID**。这是每个进程的唯一身份证号，结束进程（`kill`）时要用到它。 |
+   | **%CPU**    | CPU Usage         | 进程占用的 CPU 百分比。                                      |
+   | **%MEM**    | Memory Usage      | 进程占用的物理内存百分比。                                   |
+   | **VSZ**     | Virtual Size      | 虚拟内存大小（KB），包含进程可以访问的所有内存，包括置换出去的。 |
+   | **RSS**     | Resident Set Size | 实际占用的**物理内存**大小（KB）。                           |
+   | **TTY**     | Terminal Type     | 进程在哪个终端运行。`?` 表示后台运行（与终端无关）。         |
+   | **STAT**    | Status            | **进程状态**（非常关键，见下表）。                           |
+   | **START**   | Start Time        | 进程启动的具体时间。                                         |
+   | **TIME**    | CPU Time          | 进程自启动以来实际占用 CPU 的总时间。                        |
+   | **COMMAND** | Command           | 启动该进程的完整命令行。                                     |
+
+5. 详解进程状态（STAT）
+
+   * **R (Running)**：正在运行，或者在运行队列中等待。
+
+   * **S (Interruptible Sleep)**：可中断休眠。它在等某个事件发生（比如等用户输入）。
+
+   * **D (Uninterruptible Sleep)**：不可中断休眠。通常在等硬盘 I/O，此时 `kill -9` 也杀不掉它。
+
+   * **T (Stopped)**：已停止（可能被手动暂停了）。
+
+   * **Z (Zombie)**：**僵尸进程**。进程已结束，但父进程还没回收它的“尸体”（信息）。
+
+   * **<**：高优先级进程。
+
+   * **N**：低优先级进程。
+
+   * **+**：位于前台进程组。
+
+     ![](https://cdn.jsdmirror.com/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260219192355196.png)
+
+#### 1.3.3 终止进程kill和killall
+
+1. 介绍：若是一个进程执行到一半需要停止或消耗过大资源时，可以考虑停止该进程，使用kill命令即可。
+
+2. 基本语法
+
+   * `kill [选项] 进程号`，通过进程号杀死进程
+   * `killall 进程名称`，杀死所有该名称的进程，支持通配符
+
+3. 常用选项
+
+   * `-9` : 强制杀死进程
+   * `-15` : 默认，请求进程正常关闭
+   * `-1` : 挂起信号，通常用于让进程重新加载配置
+
+4. 案例
+
+   * 踢掉某个非法登录用户
+
+     ![image-20260219195930527](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260219195930527.png)
+
+     `ps -aux | grep sshd` , 找到管理远程连接的该进程，其中 `ethan [priv]` 即为目标进程，终止该进程，该远程连接以及其子进程也会断掉
+
+   * 终止远程登录服务sshd：`root       7776      1  0 17:44 ?        00:00:00 /usr/sbin/sshd -D`，终止该进程即可，重启该服务命令为`/bin/systemctl start sshd.service`
+
+   * 终止多个gedit:`killall gedit`
+
+   * 强制杀掉一个终端
+
+     ![image-20260219201242816](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260219201242816.png)
+
+     `ps -aux | grep bash`，找到所有终端，pts/ 的即为目标，可以在要杀掉的终端内输入`tty`命令，获取终端号，再根据其对应的进程号杀死即可，需要-9强制杀掉
+
+#### 1.3.4 查看进程树pstree
+
+1. 基本语法：`pstree [选项]` ，可以更加直观的来查看进程的信息
+2. 常用选项
+   * `-p` : 显示进程PID
+   * `-u` : 显示进程所属用户
+
+#### 1.3.5 服务管理
+
+1. 介绍：服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如(mysqld,sshd,防火墙等)，因此也称为守护进程
+2. service管理指令
+   * 基本语法： `service 服务名 [start | stop | restart | reload | status]` 
+   * 注意：在CentOS7.0后，很多服务不再使用 service，而是 systemctl
+   * service指令管理的服务在 `/etc/init.d` 查看
+
+
+
