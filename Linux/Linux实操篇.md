@@ -100,7 +100,16 @@
 
    `tree`
 
+### 1.2 网络配置
 
+#### 1.2.1 NAT网络配置原理图
 
+![image-20260211200929048](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260211200929048.png)
 
+#### 1.2.2 网络配置指令
 
+1. 查看ip地址：`ifconfig / ip addr`
+2. ping测试主机之间的连通性
+   * 基本语法：`ping 目的主机ip`
+3. Linux网络环境设置
+   * DHCP协议自动获取IP
