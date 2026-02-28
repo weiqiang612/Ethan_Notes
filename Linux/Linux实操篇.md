@@ -285,17 +285,55 @@
 #### 1.3.4 查看进程树pstree
 
 1. 基本语法：`pstree [选项]` ，可以更加直观的来查看进程的信息
+
 2. 常用选项
    * `-p` : 显示进程PID
+   
+   ![image-20260228151104902](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260228151104902.png)
+   
    * `-u` : 显示进程所属用户
+   
+   ![image-20260228151138687](https://jsd.cdn.zzko.cn/gh/weiqiang612/My-TuChuang@main/img/Linux/image-20260228151138687.png)
 
 #### 1.3.5 服务管理
 
 1. 介绍：服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如(mysqld,sshd,防火墙等)，因此也称为守护进程
+
 2. service管理指令
    * 基本语法： `service 服务名 [start | stop | restart | reload | status]` 
    * 注意：在CentOS7.0后，很多服务不再使用 service，而是 systemctl
    * service指令管理的服务在 `/etc/init.d` 查看
 
+3. 服务管理
+
+   * chkconfig指令（check configuration）
+
+     * 介绍
+       * 管理开机自启的指令
+       * 通过chkconfig指令可以给服务的各个运行级别设置自启动/关闭，即设置该服务在某个运行级别下是自启动还是关闭
+       * 该指令管理的服务可以通过 `/etc/init.d` 查看
+       * CentOS 7.0后，很多服务使用 systemctl 管理
+     * chkconfig 基本语法
+       * chkconfig --list [| grep xxx]  查看服务
+       * chkconfig 服务名 --list 查看特定服务
+       * chkconfig --level 5 服务名 on / off
+
+   * `systemctl`管理指令
+
+     | **分类**     | **操作** | **指令**                        | **说明**                      |
+     | ------------ | -------- | ------------------------------- | ----------------------------- |
+     | **服务控制** | 启动     | `systemctl start <服务名>`      | 立即开启服务                  |
+     |              | 停止     | `systemctl stop <服务名>`       | 立即关闭服务                  |
+     |              | 重启     | `systemctl restart <服务名>`    | 重启服务（先关后开）          |
+     |              | 状态     | `systemctl status <服务名>`     | 🔍 查看运行详情、PID及最近日志 |
+     | **开机自启** | 启用     | `systemctl enable <服务名>`     | 设置为开机后自动运行          |
+     |              | 禁用     | `systemctl disable <服务名>`    | 取消开机自动运行              |
+     |              | 检查     | `systemctl is-enabled <服务名>` | 查询该服务是否已设为自启      |
+     | **系统查询** | 运行中   | `systemctl list-unit-files`     | 列出磁盘上安装的服务          |
+     |              | 失败项   | `systemctl --failed`            | ⚠️ 快速找出启动失败的服务      |
+
+     注意：systemctl管理的指令在 `/usr/lib/systemd/system` 查看
 
 
+
+ 
