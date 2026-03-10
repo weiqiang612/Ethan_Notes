@@ -21,11 +21,11 @@
 > * 优点：HTTP协议中支持的技术
 >	* 缺点：
 >
->	  * 移动端 **浏览器** 使用 $\text{Cookie}$；移动端 **原生 $\text{APP}$** 不直接使用 $\text{HTTP}$ 的 $\text{Cookie}$，但通常使用 **$\text{Token}$** 或本地存储来维护会话
+>	  - [ ] 移动端 **浏览器** 使用 $\text{Cookie}$；移动端 **原生 $\text{APP}$** 不直接使用 $\text{HTTP}$ 的 $\text{Cookie}$，但通常使用 **$\text{Token}$** 或本地存储来维护会话
 >
->	  * 不安全，可能被 **$\text{CSRF}$**（跨站请求伪造）和 **$\text{XSS}$**（跨站脚本攻击）利用，用户可以自己禁用Cookie
+>	  - [ ] 不安全，可能被 **$\text{CSRF}$**（跨站请求伪造）和 **$\text{XSS}$**（跨站脚本攻击）利用，用户可以自己禁用Cookie
 >
->	  * 不能跨域（协议、IP/域名、端口）：$\text{Cookie}$ 受限于 **`Domain`** 和 **`Path`** 属性，确实无法跨**顶级域**共享（如 `a.com` 到 `b.com`）。但可以跨**子域**共享（如 `api.a.com` 到 `www.a.com`）。在前后端分离的开发模式中，前后端程序部署在不同的服务器上，前后端的Cookie共享很麻烦。
+>	  - [ ] 不能跨域（协议、IP/域名、端口）：$\text{Cookie}$ 受限于 **`Domain`** 和 **`Path`** 属性，确实无法跨**顶级域**共享（如 `a.com` 到 `b.com`）。但可以跨**子域**共享（如 `api.a.com` 到 `www.a.com`）。在前后端分离的开发模式中，前后端程序部署在不同的服务器上，前后端的Cookie共享很麻烦。
 >
 >
 >
@@ -136,7 +136,7 @@
 >            System.out.println("destroy 销毁方法被执行了");
 >        }
 >    }
->    ```
+>   ```
 > 
 >   注意：启动类上需要加@ServletComponentScan //开启Servlet组件支持
 >
