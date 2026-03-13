@@ -39,10 +39,10 @@
 >      @Component
 >      @Aspect
 >      public class TimeStat {
->           
+>                
 >          @Around("execution(* com.itheima.service.*.*(..))")
 >          public Object getTimeStat(ProceedingJoinPoint joinPoint) throws Throwable {
->           
+>                
 >              // 1. 记录开始时间
 >              Long start = System.currentTimeMillis();
 >              // 2. 执行原方法
@@ -51,7 +51,7 @@
 >              Long end = System.currentTimeMillis();
 >              // 4. 以日志形式输出
 >              log.info(joinPoint.getSignature() + "执行耗时：{}ms", end - start);
->           
+>                
 >              // 5. 返回原方法执行结果
 >              return result;
 >          }
@@ -111,3 +111,130 @@
 >    
 >       
 
+在 AOP 编程中，`JoinPoint`（连接点）是你与目标方法沟通的**唯一桥梁**。当 AOP 拦截到一个方法时，所有的上下文信息（方法名、参数、所属类、注解等）都封装在这个对象里。
+
+以下是 `JoinPoint` 的详细使用指南，建议收藏作为技术手册参考。
+
+------
+
+## 一、 JoinPoint 的核心家族成员
+
+在编写切面时，你通常会遇到两个对象：
+
+1. **`JoinPoint`**：基础接口。适用于 `@Before`、`@After`、`@AfterReturning`、`@AfterThrowing`。
+2. **`ProceedingJoinPoint`**：继承自 `JoinPoint`。**仅用于 `@Around`（环绕通知）**，因为它多了一个 `proceed()` 方法来控制目标方法的执行。
+
+------
+
+## 二、 常用方法详解（查阅手册）
+
+假设我们拦截了这样一个方法：`userMapper.update(User user, String operator)`。
+
+### 1. 获取目标方法的信息
+
+Java
+
+```
+MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+
+// 1. 获取方法名 -> "update"
+String methodName = signature.getName();
+
+// 2. 获取声明方法的类 -> UserMapper.class
+Class targetClass = signature.getDeclaringType();
+
+// 3. 获取参数名数组 -> ["user", "operator"]
+String[] parameterNames = signature.getParameterNames();
+
+// 4. 获取参数类型数组 -> [User.class, String.class]
+Class[] parameterTypes = signature.getParameterTypes();
+```
+
+### 2. 获取方法参数值（最常用）
+
+Java
+
+```
+// 获取所有入参 -> [User对象, "admin"]
+Object[] args = joinPoint.getArgs();
+
+// 通常配合索引使用，比如获取第一个参数
+if (args.length > 0 && args[0] instanceof User) {
+    User user = (User) args[0];
+}
+```
+
+### 3. 获取目标对象与代理对象
+
+Java
+
+```
+// 获取被代理的原型对象（Target）
+Object target = joinPoint.getTarget();
+
+// 获取生成的代理对象（Proxy）
+Object proxy = joinPoint.getThis();
+```
+
+### 4. 获取方法上的注解
+
+这是配合自定义注解（如 `@AutoFill`）的核心用法：
+
+Java
+
+```
+MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+Method method = signature.getMethod();
+
+// 获取特定的注解
+AutoFill autoFill = method.getAnnotation(AutoFill.class);
+```
+
+------
+
+## 三、 ProceedingJoinPoint 特有功能（环绕通知专用）
+
+环绕通知是最强大的通知，因为它可以**改变**参数，甚至**阻止**原方法执行。
+
+Java
+
+```
+@Around("@annotation(autoFill)")
+public Object handleAround(ProceedingJoinPoint pjp, AutoFill autoFill) throws Throwable {
+    // 1. 执行前逻辑
+    Object[] args = pjp.getArgs();
+    
+    // 2. 执行目标方法
+    // 可以不传参：pjp.proceed()
+    // 也可以篡改参数后传入：pjp.proceed(newArgs)
+    Object result = pjp.proceed(); 
+    
+    // 3. 执行后逻辑
+    return result; // 返回结果给调用者
+}
+```
+
+------
+
+## 四、 实战场景归纳表
+
+| **需求场景**      | **使用 JoinPoint 的哪个部分**    | **示例逻辑**                                  |
+| ----------------- | -------------------------------- | --------------------------------------------- |
+| **公共字段填充**  | `getArgs()`                      | 获取第一个参数（实体类），利用反射 set 属性。 |
+| **操作日志记录**  | `getSignature()` + `@annotation` | 获取方法名和注解里的描述文字。                |
+| **权限校验**      | `getArgs()` 或 `ThreadLocal`     | 校验参数里的 ID 是否属于当前用户。            |
+| **性能统计**      | `Around` 通知                    | 在 `proceed()` 前后计算系统时间差。           |
+| **参数脱敏/加密** | `getArgs()` + `proceed(args)`    | 在 `proceed` 之前修改参数数组里的值。         |
+
+------
+
+## 五、 使用注意事项（避坑）
+
+1. **类型强转安全**：`joinPoint.getSignature()` 返回的是 `Signature` 接口，在 Spring AOP 拦截方法时，它一定是 `MethodSignature` 接口的实现，直接强转即可。
+2. **参数顺序**：`getArgs()` 返回的数组顺序与方法定义的参数顺序**严格一致**。
+3. **空指针检查**：在处理 `getArgs()` 时，务必先判断 `args != null && args.length > 0`，防止空指针异常。
+4. **环绕通知必须返回**：如果你用了 `@Around`，一定要将 `pjp.proceed()` 的结果 `return` 出去，否则原始方法的调用者会拿到一个 `null`。
+
+**这份梳理涵盖了 JoinPoint 90% 以上的使用场景。你是否需要我针对“反射给字段赋值”这一步，写一个通用的工具类代码实现？**
+
+ 
