@@ -1,0 +1,8 @@
+# 依赖库
+node_modules/
+
+# VitePress 编译输出和缓存
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# 这里的逻辑：局部配置会与你的全局配置合并生效
