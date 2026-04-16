@@ -25,7 +25,7 @@
 
         * 在Maven中，可以在父工程的pom文件中通过&lt;dependencyManagement&gt;来统一管理依赖版本，在该标签下的依赖并不会被直接加入进来，如果要用到时直接引用即可，相应的，也不用写版本号了
 
-        * 自定义属性，可以通过 &lt;properties&gt;标签，指定相应的依赖的版本号，之后直接通过${}引用即可
+        * 自定义属性，可以通过 &lt;properties&gt;标签，指定相应的依赖的版本号，之后直接通过 `${...}` 引用即可
 
           ![](https://cdn.jsdelivr.net/gh/weiqiang612/My-Tuchuang/img/SpringBoot/assets/自定义属性.jpg)
 

@@ -42,5 +42,22 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/weiqiang612/My-TuChuang' }
     ]
+  },
+    vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => {
+          // 只放行这些在文档正文里出现过的裸标签
+          const customTags = [
+            'foreach', 'if', 'where', 'set', 'trim',  // MyBatis XML 标签
+            'select', 'insert', 'update', 'delete',     // MyBatis SQL 标签
+            'configuration', 'mapper', 'resultMap',     // MyBatis 配置标签
+            'dependency', 'groupId', 'artifactId',      // Maven 标签
+            'beans', 'bean', 'property',                // Spring XML 标签
+          ]
+          return customTags.includes(tag)
+        }
+      }
+    }
   }
 })
