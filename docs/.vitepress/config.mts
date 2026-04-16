@@ -43,7 +43,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/weiqiang612/My-TuChuang' }
     ]
   },
-    vue: {
+  vue: {
     template: {
       compilerOptions: {
         isCustomElement: (tag) => {
@@ -59,5 +59,8 @@ export default defineConfig({
         }
       }
     }
-  }
+  },
+  ignoreDeadLinks: [
+    /^https?:\/\/localhost/,  // 忽略所有 localhost 链接
+  ]
 })
