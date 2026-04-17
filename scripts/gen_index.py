@@ -24,6 +24,10 @@ def generate_indexes(docs_path):
         if '.vitepress' in root or 'public' in root:
             continue
 
+        # 跳过 docs/ 根目录本身
+        if os.path.abspath(root) == os.path.abspath(docs_path):
+            continue
+
         # 筛选 .md 文件并排除已有的 index.md
         md_files = [f for f in files if f.endswith('.md') and f.lower() != 'index.md']
 
