@@ -40,8 +40,12 @@ export default defineConfig({
     ],
     sidebar: getSidebar(),
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/weiqiang612/My-TuChuang' }
-    ]
+      { icon: 'github', link: 'https://github.com/weiqiang612' }
+    ],
+    outline: {
+      level: [2, 4],  // 覆盖 ## ### #### 三个层级
+      label: '本页目录'
+    }
   },
   vue: {
     template: {

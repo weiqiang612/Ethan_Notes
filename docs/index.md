@@ -21,6 +21,6 @@ features:
     details: 涵盖计算机网络、操作系统及算法，打牢底层功底。
     link: /算法/
   - title: 效率工具
-    details: 记录 Linux、Nginx 配置以及开发环境的优化心得。
+    details: 记录 Linux、Git、Nginx 配置以及开发环境的优化心得。
     link: /Nginx/
 ---
