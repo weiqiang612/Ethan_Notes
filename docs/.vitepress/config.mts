@@ -21,7 +21,7 @@ function getSidebar() {
       
       // 2. 获取子文件并应用自然排序
       const childrenFiles = fs.readdirSync(filePath)
-        .filter(f => f.endswith('.md') && f.toLowerCase() !== 'index.md')
+        .filter(f => f.endsWith('.md') && f.toLowerCase() !== 'index.md')
       
       // 执行排序：确保 2. 在 10. 前面
       childrenFiles.sort(naturalSort)
