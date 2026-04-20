@@ -37,15 +37,21 @@ def generate_indexes(docs_path):
         if os.path.exists(target_index_path):
             with open(target_index_path, 'r', encoding='utf-8') as f:
                 original_content = f.read()
-                # 寻找“## 📑 本节目录”的位置
-                # 如果找到了，就截取它之前的所有内容（包括你的简介）
-                search_term = "## 📑 本节目录"
-                if search_term in original_content:
-                    prefix_content = original_content.split(search_term)[0].rstrip() + "\n\n"
+                
+                # 使用正则匹配：查找 ## 开头，包含“本节目录”字样的行
+                # 这样不管有没有图标、空格是多少，都能匹配到
+                match = re.search(r'## .*?本节目录', original_content)
+                
+                if match:
+                    # 截取匹配到的位置之前的内容
+                    prefix_content = original_content[:match.start()].rstrip() + "\n\n"
                 else:
-                    # 如果还没目录，则尝试保留标题后的简介
-                    # 这里假设你手动写的简介在标题之后
-                    prefix_content = original_content
+                    # 如果没找到，为了防止重复追加，我们检查一下标题是否已经存在
+                    if f"# {os.path.basename(root)}" in original_content:
+                         # 已经有标题了，我们就保持原样（或者你可以根据需求微调）
+                         prefix_content = original_content.rstrip() + "\n\n"
+                    else:
+                         prefix_content = f"# {os.path.basename(root)}\n\n"
         
         # 如果是新文件或没找到原内容，使用默认标题
         if not prefix_content.strip():

@@ -6,17 +6,31 @@ function getSidebar() {
   const docsPath = path.resolve(__dirname, '../')
   const ignoreFiles = ['.vitepress', 'public', 'index.md', 'api-examples.md', 'markdown-examples.md', 'node_modules']
   
+  // 1. 定义自然排序函数
+  const naturalSort = (a: string, b: string) => {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+  }
+
   const sidebar: any[] = []
   const files = fs.readdirSync(docsPath)
-  files.forEach(file => {
+
+  // 文件夹也排一下序
+  files.sort(naturalSort).forEach(file => {
     const filePath = path.join(docsPath, file)
     if (fs.statSync(filePath).isDirectory() && !ignoreFiles.includes(file)) {
-      const children = fs.readdirSync(filePath)
-        .filter(f => f.endsWith('.md') && f !== 'index.md') // ① 过滤掉 index.md
-        .map(f => ({
-          text: f.replace('.md', ''),
-          link: `/${file}/${f.replace('.md', '')}`
-        }))
+      
+      // 2. 获取子文件并应用自然排序
+      const childrenFiles = fs.readdirSync(filePath)
+        .filter(f => f.endswith('.md') && f.toLowerCase() !== 'index.md')
+      
+      // 执行排序：确保 2. 在 10. 前面
+      childrenFiles.sort(naturalSort)
+
+      const children = childrenFiles.map(f => ({
+        text: f.replace('.md', ''),
+        link: `/${file}/${f.replace('.md', '')}`
+      }))
+
       if (children.length > 0) {
         sidebar.push({
           text: file,
