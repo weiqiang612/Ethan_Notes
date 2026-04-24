@@ -14,7 +14,7 @@ Canal是基于MySQL的主从同步功能，因此必须先开启MySQL的主从�
 
 打开mysql容器挂载的日志文件，我的在`/tmp/mysql/conf`目录:
 
-![image-20210813153241537](assets/image-20210813153241537.png)
+![image-20210813153241537](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210813153241537.png)
 
 修改文件：
 
@@ -74,7 +74,7 @@ docker restart mysql
 show master status;
 ```
 
-![image-20200327094735948](assets/image-20200327094735948.png) 
+![image-20200327094735948](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20200327094735948.png) 
 
 
 
@@ -104,7 +104,7 @@ docker network connect heima mysql
 
 课前资料中提供了canal的镜像压缩包:
 
-![image-20210813161804292](assets/image-20210813161804292.png) 
+![image-20210813161804292](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210813161804292.png) 
 
 大家可以上传到虚拟机，然后通过命令导入：
 

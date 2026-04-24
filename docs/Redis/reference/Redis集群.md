@@ -20,11 +20,11 @@ yum install -y gcc tcl
 
 然后将课前资料提供的Redis安装包上传到虚拟机的任意目录：
 
-![image-20210629114325516](assets/image-20210629114325516.png)
+![image-20210629114325516](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210629114325516.png)
 
 例如，我放到了/tmp目录：
 
-![image-20210629114830642](assets/image-20210629114830642.png)
+![image-20210629114830642](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210629114830642.png)
 
 解压缩：
 
@@ -34,7 +34,7 @@ tar -xzf redis-6.2.4.tar.gz
 
 解压后：
 
-![image-20210629114941810](assets/image-20210629114941810.png)
+![image-20210629114941810](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210629114941810.png)
 
 进入redis目录：
 
@@ -91,7 +91,7 @@ redis-cli shutdown
 
 我们搭建的主从集群结构如图：
 
-![image-20210630111505799](assets/image-20210630111505799.png)
+![image-20210630111505799](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210630111505799.png)
 
 共包含三个节点，一个主节点，两个从节点。
 
@@ -120,7 +120,7 @@ mkdir 7001 7002 7003
 
 如图：
 
-![image-20210630113929868](assets/image-20210630113929868.png)
+![image-20210630113929868](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210630113929868.png)
 
 2）恢复原始配置
 
@@ -213,7 +213,7 @@ redis-server 7003/redis.conf
 
 启动后：
 
-![image-20210630183914491](assets/image-20210630183914491.png)
+![image-20210630183914491](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210630183914491.png)
 
 
 
@@ -286,7 +286,7 @@ info replication
 
 结果：
 
-![image-20210630201258802](assets/image-20210630201258802.png)
+![image-20210630201258802](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210630201258802.png)
 
 
 
@@ -314,7 +314,7 @@ info replication
 
 这里我们搭建一个三节点形成的Sentinel集群，来监管之前的Redis主从集群。如图：
 
-![image-20210701215227018](assets/image-20210701215227018.png)
+![image-20210701215227018](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701215227018.png)
 
 
 
@@ -341,7 +341,7 @@ mkdir s1 s2 s3
 
 如图：
 
-![image-20210701215534714](assets/image-20210701215534714.png)
+![image-20210701215534714](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701215534714.png)
 
 然后我们在s1目录创建一个sentinel.conf文件，添加下面的内容：
 
@@ -402,7 +402,7 @@ redis-sentinel s3/sentinel.conf
 
 启动后：
 
-![image-20210701220714104](assets/image-20210701220714104.png)
+![image-20210701220714104](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701220714104.png)
 
 
 
@@ -410,15 +410,15 @@ redis-sentinel s3/sentinel.conf
 
 尝试让master节点7001宕机，查看sentinel日志：
 
-![image-20210701222857997](assets/image-20210701222857997.png)
+![image-20210701222857997](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701222857997.png)
 
 查看7003的日志：
 
-![image-20210701223025709](assets/image-20210701223025709.png)
+![image-20210701223025709](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701223025709.png)
 
 查看7002的日志：
 
-![image-20210701223131264](assets/image-20210701223131264.png)
+![image-20210701223131264](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210701223131264.png)
 
 
 
@@ -430,7 +430,7 @@ redis-sentinel s3/sentinel.conf
 
 分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：
 
-![image-20210702164116027](assets/image-20210702164116027.png)
+![image-20210702164116027](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702164116027.png)
 
 
 
@@ -529,7 +529,7 @@ ps -ef | grep redis
 
 发现服务都已经正常启动：
 
-![image-20210702174255799](assets/image-20210702174255799.png)
+![image-20210702174255799](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702174255799.png)
 
 
 
@@ -598,11 +598,11 @@ redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150
 
 运行后的样子：
 
-![image-20210702181101969](assets/image-20210702181101969.png)
+![image-20210702181101969](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702181101969.png)
 
 这里输入yes，则集群开始创建：
 
-![image-20210702181215705](assets/image-20210702181215705.png)
+![image-20210702181215705](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702181215705.png)
 
 
 
@@ -612,7 +612,7 @@ redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150
 redis-cli -p 7001 cluster nodes
 ```
 
-![image-20210702181922809](assets/image-20210702181922809.png)
+![image-20210702181922809](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702181922809.png)
 
 
 
@@ -633,7 +633,7 @@ set a 1
 
 结果悲剧了：
 
-![image-20210702182343979](assets/image-20210702182343979.png)
+![image-20210702182343979](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702182343979.png)
 
 集群操作时，需要给`redis-cli`加上`-c`参数才可以：
 
@@ -643,5 +643,5 @@ redis-cli -c -p 7001
 
 这次可以了：
 
-![image-20210702182602145](assets/image-20210702182602145.png)
+![image-20210702182602145](https://gcore.jsdelivr.net/gh/weiqiang612/My-TuChuang@main/img/Redis/image-20210702182602145.png)
 
