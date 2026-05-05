@@ -1,0 +1,1219 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
+  .panel {
+    padding: 1.5rem 1rem 1rem;
+  }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 6px 14px;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-text-secondary);
+    transition: all 0.15s;
+  }
+  .tab.active {
+    background: var(--color-background-info);
+    color: var(--color-text-info);
+    border-color: transparent;
+    font-weight: 500;
+  }
+  .tab:hover:not(.active) {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+  }
+  .section {
+    display: none;
+  }
+  .section.active {
+    display: block;
+  }
+  .layer-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem 1.25rem;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .layer-card:hover {
+    border-color: var(--color-border-primary);
+  }
+  .layer-card.selected {
+    border-color: var(--color-border-info);
+    background: var(--color-background-info);
+  }
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .badge-purple {
+    background: #eeedfe;
+    color: #3c3489;
+  }
+  .badge-amber {
+    background: #faeeda;
+    color: #633806;
+  }
+  .badge-teal {
+    background: #e1f5ee;
+    color: #085041;
+  }
+  .detail-box {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+  .detail-box h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .detail-box ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .detail-box li {
+    margin-bottom: 3px;
+  }
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+  .flow-node {
+    border-radius: var(--border-radius-md);
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 90px;
+  }
+  .fn-client {
+    background: #f1efe8;
+    color: #444441;
+  }
+  .fn-nginx {
+    background: #eeedfe;
+    color: #3c3489;
+  }
+  .fn-redis {
+    background: #faeeda;
+    color: #633806;
+  }
+  .fn-jvm {
+    background: #e1f5ee;
+    color: #085041;
+  }
+  .fn-db {
+    background: #fcebeb;
+    color: #791f1f;
+  }
+  .flow-arrow {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-tertiary);
+  }
+  .hit-label {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+  }
+  .hit {
+    background: #eaf3de;
+    color: #27500a;
+  }
+  .miss {
+    background: #fcebeb;
+    color: #791f1f;
+  }
+  .scenario-btn {
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-text-secondary);
+    transition: all 0.15s;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+  .scenario-btn:hover {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+  }
+  .scenario-btn.active {
+    background: var(--color-background-success);
+    color: var(--color-text-success);
+    border-color: transparent;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+  .step-body strong {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+  .step-inactive {
+    opacity: 0.3;
+  }
+  .prop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .prop-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 10px 12px;
+  }
+  .prop-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 4px;
+  }
+  .prop-val {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .code-block {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+  .code-block .kw {
+    color: #534ab7;
+  }
+  .code-block .str {
+    color: #0f6e56;
+  }
+  .code-block .cm {
+    color: var(--color-text-tertiary);
+    font-style: italic;
+  }
+  @media (prefers-color-scheme: dark) {
+    .badge-purple {
+      background: #26215c;
+      color: #afa9ec;
+    }
+    .badge-amber {
+      background: #412402;
+      color: #fac775;
+    }
+    .badge-teal {
+      background: #04342c;
+      color: #9fe1cb;
+    }
+  }
+</style>
+
+<div class="panel">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview')">
+      Architecture
+    </button>
+    <button class="tab" onclick="switchTab('flow')">Request flow</button>
+    <button class="tab" onclick="switchTab('layers')">Layer details</button>
+    <button class="tab" onclick="switchTab('config')">Config examples</button>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="section active" id="tab-overview">
+    <svg width="100%" viewBox="0 0 680 480" role="img">
+      <title>
+        Multi-level caching architecture: Nginx/OpenResty → Redis cluster → JVM
+        Caffeine → Database
+      </title>
+      <desc>
+        Layered diagram showing client requests passing through Nginx local
+        cache, Redis distributed cache, JVM process cache, then hitting the
+        database on cache miss
+      </desc>
+      <defs>
+        <marker
+          id="arr"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path
+            d="M2 1L8 5L2 9"
+            fill="none"
+            stroke="context-stroke"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </marker>
+      </defs>
+
+      <!-- Internet cloud -->
+      <g class="c-gray">
+        <rect
+          x="260"
+          y="20"
+          width="160"
+          height="44"
+          rx="22"
+          stroke-width="0.5"
+        />
+        <text
+          class="th"
+          x="340"
+          y="47"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Client / Internet
+        </text>
+      </g>
+
+      <!-- Arrow down -->
+      <line
+        x1="340"
+        y1="64"
+        x2="340"
+        y2="92"
+        stroke="var(--t)"
+        stroke-width="1"
+        marker-end="url(#arr)"
+        fill="none"
+      />
+
+      <!-- Layer 1: Nginx/OpenResty -->
+      <g class="c-purple">
+        <rect
+          x="80"
+          y="96"
+          width="520"
+          height="80"
+          rx="12"
+          stroke-width="0.5"
+        />
+        <text
+          class="th"
+          x="200"
+          y="124"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Layer 1 — Nginx / OpenResty
+        </text>
+        <text
+          class="ts"
+          x="200"
+          y="145"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          lua_shared_dict · shared memory · ~ms TTL
+        </text>
+        <rect
+          x="380"
+          y="108"
+          width="100"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="430"
+          y="122"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          shared_dict
+        </text>
+        <rect
+          x="494"
+          y="108"
+          width="90"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="539"
+          y="122"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          lua cache
+        </text>
+        <text
+          class="ts"
+          x="430"
+          y="158"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          hit → return immediately
+        </text>
+      </g>
+
+      <!-- Miss arrow -->
+      <line
+        x1="340"
+        y1="176"
+        x2="340"
+        y2="204"
+        stroke="var(--t)"
+        stroke-width="1"
+        marker-end="url(#arr)"
+        fill="none"
+      />
+      <text
+        class="ts"
+        x="358"
+        y="195"
+        dominant-baseline="central"
+        opacity="0.6"
+      >
+        miss
+      </text>
+
+      <!-- Layer 2: Redis cluster -->
+      <g class="c-amber">
+        <rect
+          x="80"
+          y="208"
+          width="520"
+          height="80"
+          rx="12"
+          stroke-width="0.5"
+        />
+        <text
+          class="th"
+          x="200"
+          y="236"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Layer 2 — Redis cluster
+        </text>
+        <text
+          class="ts"
+          x="200"
+          y="257"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          distributed · sub-ms · TTL seconds–minutes
+        </text>
+        <rect
+          x="380"
+          y="220"
+          width="72"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="416"
+          y="234"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          primary
+        </text>
+        <rect
+          x="460"
+          y="220"
+          width="60"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="490"
+          y="234"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          replica
+        </text>
+        <rect
+          x="528"
+          y="220"
+          width="60"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="558"
+          y="234"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          replica
+        </text>
+        <text
+          class="ts"
+          x="430"
+          y="270"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          hit → warm Nginx, return
+        </text>
+      </g>
+
+      <!-- Miss arrow -->
+      <line
+        x1="340"
+        y1="288"
+        x2="340"
+        y2="316"
+        stroke="var(--t)"
+        stroke-width="1"
+        marker-end="url(#arr)"
+        fill="none"
+      />
+      <text
+        class="ts"
+        x="358"
+        y="307"
+        dominant-baseline="central"
+        opacity="0.6"
+      >
+        miss
+      </text>
+
+      <!-- Layer 3: JVM -->
+      <g class="c-teal">
+        <rect
+          x="80"
+          y="320"
+          width="520"
+          height="80"
+          rx="12"
+          stroke-width="0.5"
+        />
+        <text
+          class="th"
+          x="200"
+          y="348"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Layer 3 — JVM / Caffeine
+        </text>
+        <text
+          class="ts"
+          x="200"
+          y="369"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          in-process · nano/micro-s · bounded size
+        </text>
+        <rect
+          x="380"
+          y="332"
+          width="80"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="420"
+          y="346"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Caffeine
+        </text>
+        <rect
+          x="468"
+          y="332"
+          width="120"
+          height="28"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="0.5"
+          opacity="0.5"
+        />
+        <text
+          class="ts"
+          x="528"
+          y="346"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          W-TinyLFU eviction
+        </text>
+        <text
+          class="ts"
+          x="430"
+          y="382"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          hit → warm Redis, return
+        </text>
+      </g>
+
+      <!-- Miss arrow -->
+      <line
+        x1="340"
+        y1="400"
+        x2="340"
+        y2="428"
+        stroke="var(--t)"
+        stroke-width="1"
+        marker-end="url(#arr)"
+        fill="none"
+      />
+      <text
+        class="ts"
+        x="358"
+        y="419"
+        dominant-baseline="central"
+        opacity="0.6"
+      >
+        miss
+      </text>
+
+      <!-- Database -->
+      <g class="c-gray">
+        <rect
+          x="200"
+          y="432"
+          width="280"
+          height="40"
+          rx="8"
+          stroke-width="0.5"
+        />
+        <text
+          class="th"
+          x="340"
+          y="452"
+          text-anchor="middle"
+          dominant-baseline="central"
+        >
+          Database / origin
+        </text>
+      </g>
+    </svg>
+    <p
+      style="
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        text-align: center;
+        margin-top: 4px;
+      "
+    >
+      Click a tab above to explore request flow or layer details
+    </p>
+  </div>
+
+  <!-- FLOW TAB -->
+  <div class="section" id="tab-flow">
+    <div
+      style="
+        margin-bottom: 12px;
+        font-size: 13px;
+        color: var(--color-text-secondary);
+      "
+    >
+      Choose a scenario to trace the request path:
+    </div>
+    <div>
+      <button class="scenario-btn active" onclick="setScenario('full-hit')">
+        Nginx hit
+      </button>
+      <button class="scenario-btn" onclick="setScenario('redis-hit')">
+        Redis hit
+      </button>
+      <button class="scenario-btn" onclick="setScenario('jvm-hit')">
+        JVM hit
+      </button>
+      <button class="scenario-btn" onclick="setScenario('cold')">
+        Full miss (cold start)
+      </button>
+    </div>
+
+    <div id="flow-steps" style="margin-top: 16px"></div>
+
+    <div class="prop-grid">
+      <div class="prop-card">
+        <div class="prop-label">Typical latency</div>
+        <div class="prop-val" id="lat-val">~0.1ms</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-label">Layers consulted</div>
+        <div class="prop-val" id="layers-val">1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYERS TAB -->
+  <div class="section" id="tab-layers">
+    <div
+      id="layer-detail-placeholder"
+      style="
+        font-size: 13px;
+        color: var(--color-text-tertiary);
+        margin-bottom: 12px;
+      "
+    >
+      Select a layer to see details:
+    </div>
+
+    <div class="layer-card" id="card-nginx" onclick="selectLayer('nginx')">
+      <div class="layer-header">
+        <span class="badge badge-purple">Layer 1</span>
+        <strong style="font-size: 14px">Nginx / OpenResty</strong>
+      </div>
+      <div style="font-size: 13px; color: var(--color-text-secondary)">
+        Shared-memory dict + Lua scripting. Serves cached responses before
+        hitting any backend.
+      </div>
+    </div>
+
+    <div id="detail-nginx" style="display: none" class="detail-box">
+      <h4>Key characteristics</h4>
+      <ul>
+        <li>
+          <strong>Storage:</strong> <code>lua_shared_dict</code> — shared across
+          all worker processes, survives worker restarts
+        </li>
+        <li>
+          <strong>Latency:</strong> sub-millisecond (memory read, no network
+          hop)
+        </li>
+        <li>
+          <strong>TTL:</strong> seconds to a few minutes; short to stay fresh
+        </li>
+        <li>
+          <strong>Capacity:</strong> typically 10–500 MB per node; limited by
+          RAM allocation
+        </li>
+        <li>
+          <strong>Eviction:</strong> LRU built into OpenResty's
+          <code>ngx.shared.DICT</code>
+        </li>
+        <li>
+          <strong>Ideal for:</strong> static-ish content, API responses,
+          rate-limit counters, feature flags
+        </li>
+      </ul>
+      <h4 style="margin-top: 10px">Cache stampede mitigation</h4>
+      <ul>
+        <li>
+          Use <code>resty.lock</code> to allow only one request through on a
+          miss; others wait and reuse the result
+        </li>
+        <li>
+          Serve stale while revalidating (<em>stale-while-revalidate</em>
+          pattern) for non-critical data
+        </li>
+      </ul>
+    </div>
+
+    <div class="layer-card" id="card-redis" onclick="selectLayer('redis')">
+      <div class="layer-header">
+        <span class="badge badge-amber">Layer 2</span>
+        <strong style="font-size: 14px">Redis cluster</strong>
+      </div>
+      <div style="font-size: 13px; color: var(--color-text-secondary)">
+        Distributed in-memory store. Shared across all JVM instances; the
+        authoritative fast cache.
+      </div>
+    </div>
+
+    <div id="detail-redis" style="display: none" class="detail-box">
+      <h4>Key characteristics</h4>
+      <ul>
+        <li>
+          <strong>Storage:</strong> in-memory, optionally persisted (RDB / AOF
+          snapshots)
+        </li>
+        <li>
+          <strong>Latency:</strong> 0.5–5 ms (one network round-trip within
+          datacenter)
+        </li>
+        <li>
+          <strong>TTL:</strong> minutes to hours; set per key with
+          <code>EXPIRE</code> or <code>SET … EX</code>
+        </li>
+        <li>
+          <strong>Cluster:</strong> data sharded across master nodes; each
+          master has replica(s) for failover
+        </li>
+        <li>
+          <strong>Eviction:</strong> configurable (<code>allkeys-lru</code>,
+          <code>volatile-lru</code>, <code>allkeys-lfu</code>…)
+        </li>
+        <li>
+          <strong>Ideal for:</strong> session data, computed aggregates, product
+          listings, user profiles
+        </li>
+      </ul>
+      <h4 style="margin-top: 10px">Consistency patterns</h4>
+      <ul>
+        <li>
+          <strong>Cache-aside:</strong> app reads Redis → miss → read DB → write
+          Redis
+        </li>
+        <li>
+          <strong>Write-through:</strong> writes go to DB and Redis atomically
+        </li>
+        <li>
+          <strong>Cache invalidation:</strong> delete key on update; let next
+          read repopulate
+        </li>
+        <li>
+          Use Lua scripts or <code>MULTI/EXEC</code> transactions to avoid race
+          conditions
+        </li>
+      </ul>
+    </div>
+
+    <div class="layer-card" id="card-jvm" onclick="selectLayer('jvm')">
+      <div class="layer-header">
+        <span class="badge badge-teal">Layer 3</span>
+        <strong style="font-size: 14px">JVM / Caffeine</strong>
+      </div>
+      <div style="font-size: 13px; color: var(--color-text-secondary)">
+        In-process heap cache. Zero serialization cost; fastest possible reads
+        within a single JVM instance.
+      </div>
+    </div>
+
+    <div id="detail-jvm" style="display: none" class="detail-box">
+      <h4>Key characteristics</h4>
+      <ul>
+        <li>
+          <strong>Storage:</strong> Java heap — plain object references, no
+          serialization
+        </li>
+        <li><strong>Latency:</strong> nanoseconds to microseconds</li>
+        <li>
+          <strong>TTL:</strong> short (seconds to minutes); must be &lt; Redis
+          TTL to avoid serving stale after Redis evicts
+        </li>
+        <li>
+          <strong>Eviction:</strong> W-TinyLFU algorithm — near-optimal hit
+          rate, low memory overhead
+        </li>
+        <li>
+          <strong>Capacity:</strong> bounded; size set at build time to prevent
+          GC pressure
+        </li>
+        <li>
+          <strong>Scope:</strong> local to one JVM — each instance has its own
+          copy
+        </li>
+        <li>
+          <strong>Ideal for:</strong> hot config, reference data, per-request
+          metadata
+        </li>
+      </ul>
+      <h4 style="margin-top: 10px">Invalidation challenge</h4>
+      <ul>
+        <li>
+          No built-in cross-JVM invalidation — rely on short TTL or pub/sub via
+          Redis to notify all instances
+        </li>
+        <li>
+          Use <code>expireAfterWrite</code> for correctness;
+          <code>refreshAfterWrite</code> for async refresh
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONFIG TAB -->
+  <div class="section" id="tab-config">
+    <div class="tabs" style="margin-bottom: 12px">
+      <button class="tab active" onclick="switchConfig('nginx')">
+        Nginx (Lua)
+      </button>
+      <button class="tab" onclick="switchConfig('redis')">
+        Redis / Spring
+      </button>
+      <button class="tab" onclick="switchConfig('caffeine')">Caffeine</button>
+    </div>
+
+    <div id="cfg-nginx" class="code-block">
+      <span class="cm">-- nginx.conf: shared dict declaration</span>
+      <span class="kw">lua_shared_dict</span> my_cache
+      <span class="str">50m</span>;
+
+      <span class="cm">-- Lua handler: cache-aside pattern</span>
+      <span class="kw">local</span> cache = ngx.shared.my_cache
+      <span class="kw">local</span> lock = require(<span class="str"
+        >"resty.lock"</span
+      >):new(<span class="str">"my_cache"</span>)
+
+      <span class="kw">local</span> val = cache:get(key)
+      <span class="kw">if</span> val <span class="kw">then</span> ngx.say(val);
+      <span class="kw">return</span> <span class="cm">-- L1 hit</span>
+      <span class="kw">end</span>
+
+      <span class="kw">local</span> elapsed = lock:lock(key)
+      <span class="cm">-- prevent stampede</span> val = cache:get(key)
+      <span class="cm">-- re-check after lock</span>
+      <span class="kw">if not</span> val <span class="kw">then</span> val =
+      fetch_from_redis(key) <span class="cm">-- L2 lookup</span> cache:set(key,
+      val, <span class="str">30</span>) <span class="cm">-- TTL = 30 s</span>
+      <span class="kw">end</span>
+      lock:unlock() ngx.say(val)
+    </div>
+
+    <div id="cfg-redis" class="code-block" style="display: none">
+      <span class="cm">// Spring Boot — application.yml</span>
+      spring: redis: cluster: nodes: - <span class="str">redis-1:6379</span> -
+      <span class="str">redis-2:6379</span> -
+      <span class="str">redis-3:6379</span> timeout:
+      <span class="str">2000ms</span> lettuce: pool: max-active:
+      <span class="str">16</span>
+
+      <span class="cm">// Cache-aside in service layer</span>
+      <span class="kw">public</span> Product getProduct(Long id) { String key =
+      <span class="str">"product:"</span> + id; Product p =
+      redisTemplate.opsForValue().get(key); <span class="kw">if</span> (p ==
+      <span class="kw">null</span>) { p =
+      productRepo.findById(id).orElseThrow(); redisTemplate.opsForValue()
+      .set(key, p, Duration.ofMinutes(<span class="str">10</span>)); }
+      <span class="kw">return</span> p; }
+    </div>
+
+    <div id="cfg-caffeine" class="code-block" style="display: none">
+      <span class="cm">// Caffeine cache bean (Spring)</span>
+      <span class="kw">@Bean</span>
+      CacheManager cacheManager(RedisTemplate&lt;?,?&gt; redis) {
+      Caffeine&lt;Object,Object&gt; spec = Caffeine.newBuilder()
+      .maximumSize(<span class="str">1_000</span>) .expireAfterWrite(<span
+        class="str"
+        >30</span
+      >, TimeUnit.SECONDS) .recordStats();
+
+      <span class="cm">// Two-level: Caffeine in front of Redis</span>
+      <span class="kw">return new</span> TwoLevelCacheManager(
+      CaffeineCacheManager.fromSpec(spec), RedisCacheManager.builder(redis)
+      .cacheDefaults( RedisCacheConfiguration.defaultCacheConfig()
+      .entryTtl(Duration.ofMinutes(<span class="str">10</span>))) .build() ); }
+
+      <span class="cm">// Usage — identical to any Spring @Cacheable</span>
+      <span class="kw">@Cacheable</span>(value =
+      <span class="str">"products"</span>, key = <span class="str">"#id"</span>)
+      <span class="kw">public</span> Product getProduct(Long id) { ... }
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(name) {
+    document
+      .querySelectorAll(".section")
+      .forEach((s) => s.classList.remove("active"));
+    document
+      .querySelectorAll(".tab")
+      .forEach((t) => t.classList.remove("active"));
+    document.getElementById("tab-" + name).classList.add("active");
+    event.target.classList.add("active");
+  }
+
+  const scenarios = {
+    "full-hit": {
+      lat: "~0.1 ms",
+      layers: "1",
+      steps: [
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Client sends request</strong> → Nginx worker receives it.",
+        },
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx checks <code>lua_shared_dict</code></strong> → key found, TTL valid.",
+        },
+        {
+          active: true,
+          color: "#EAF3DE",
+          tc: "#27500A",
+          text: "<strong>Cache HIT</strong> — response returned immediately from shared memory. No Redis, no JVM, no DB.",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "Redis lookup (skipped)",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "JVM / Caffeine lookup (skipped)",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "Database query (skipped)",
+        },
+      ],
+    },
+    "redis-hit": {
+      lat: "~2–5 ms",
+      layers: "2",
+      steps: [
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx</strong> checks <code>lua_shared_dict</code> — miss (key expired or not yet cached).",
+        },
+        {
+          active: true,
+          color: "#FAEEDA",
+          tc: "#633806",
+          text: "<strong>Nginx queries Redis cluster</strong> — key found in the distributed cache.",
+        },
+        {
+          active: true,
+          color: "#FAEEDA",
+          tc: "#633806",
+          text: "<strong>Redis HIT</strong> — result sent to Nginx.",
+        },
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx warms its local dict</strong> (short TTL), returns response to client.",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "JVM / Caffeine lookup (skipped)",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "Database query (skipped)",
+        },
+      ],
+    },
+    "jvm-hit": {
+      lat: "~5–15 ms",
+      layers: "3",
+      steps: [
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx</strong> checks local dict — miss. Passes request through to JVM service.",
+        },
+        {
+          active: true,
+          color: "#FAEEDA",
+          tc: "#633806",
+          text: "<strong>Redis</strong> checked — miss (not yet populated or evicted).",
+        },
+        {
+          active: true,
+          color: "#E1F5EE",
+          tc: "#085041",
+          text: "<strong>Caffeine (JVM heap)</strong> checked — key found in local in-process cache.",
+        },
+        {
+          active: true,
+          color: "#E1F5EE",
+          tc: "#085041",
+          text: "<strong>JVM HIT</strong> — populates Redis with full TTL, returns response.",
+        },
+        {
+          active: true,
+          color: "#FAEEDA",
+          tc: "#633806",
+          text: "<strong>Nginx</strong> receives response, warms its local dict, serves client.",
+        },
+        {
+          active: false,
+          color: "#F1EFE8",
+          tc: "#888780",
+          text: "Database query (skipped)",
+        },
+      ],
+    },
+    cold: {
+      lat: "50–200+ ms",
+      layers: "4",
+      steps: [
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx</strong> local dict — miss.",
+        },
+        {
+          active: true,
+          color: "#FAEEDA",
+          tc: "#633806",
+          text: "<strong>Redis cluster</strong> — miss. All nodes checked, key absent.",
+        },
+        {
+          active: true,
+          color: "#E1F5EE",
+          tc: "#085041",
+          text: "<strong>Caffeine</strong> — miss. JVM has no entry (cold start or evicted).",
+        },
+        {
+          active: true,
+          color: "#FCEBEB",
+          tc: "#791F1F",
+          text: "<strong>Database query</strong> executes — full round-trip, index scan, result set returned.",
+        },
+        {
+          active: true,
+          color: "#E1F5EE",
+          tc: "#085041",
+          text: "<strong>JVM writes to Caffeine</strong> (short TTL), then writes result to Redis (longer TTL).",
+        },
+        {
+          active: true,
+          color: "#EEEDFE",
+          tc: "#3C3489",
+          text: "<strong>Nginx caches result</strong> locally, returns response. All layers now warm.",
+        },
+      ],
+    },
+  };
+
+  function setScenario(name) {
+    document
+      .querySelectorAll(".scenario-btn")
+      .forEach((b) => b.classList.remove("active"));
+    event.target.classList.add("active");
+    const s = scenarios[name];
+    document.getElementById("lat-val").textContent = s.lat;
+    document.getElementById("layers-val").textContent = s.layers;
+    const container = document.getElementById("flow-steps");
+    container.innerHTML = s.steps
+      .map(
+        (step, i) => `
+    <div class="flow-step ${step.active ? "" : "step-inactive"}">
+      <div class="step-num" style="background:${step.color};color:${step.tc}">${i + 1}</div>
+      <div class="step-body">${step.text}</div>
+    </div>
+  `,
+      )
+      .join("");
+  }
+
+  setScenario("full-hit");
+
+  function selectLayer(name) {
+    ["nginx", "redis", "jvm"].forEach((l) => {
+      document
+        .getElementById("card-" + l)
+        .classList.toggle("selected", l === name);
+      document.getElementById("detail-" + l).style.display =
+        l === name ? "block" : "none";
+    });
+  }
+
+  function switchConfig(name) {
+    ["nginx", "redis", "caffeine"].forEach((k) => {
+      document.getElementById("cfg-" + k).style.display =
+        k === name ? "block" : "none";
+    });
+    document.querySelectorAll("#tab-config .tabs .tab").forEach((t, i) => {
+      t.classList.toggle("active", ["nginx", "redis", "caffeine"][i] === name);
+    });
+  }
+</script>

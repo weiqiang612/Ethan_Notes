@@ -99,9 +99,9 @@ redis-cli shutdown
 
 |       IP        | PORT |  角色  |
 | :-------------: | :--: | :----: |
-| 192.168.150.101 | 7001 | master |
-| 192.168.150.101 | 7002 | slave  |
-| 192.168.150.101 | 7003 | slave  |
+| 192.168.134.128 | 7001 | master |
+| 192.168.134.128 | 7002 | slave  |
+| 192.168.134.128 | 7003 | slave  |
 
 ## 2.2.准备实例和配置
 
@@ -173,7 +173,7 @@ sed -i -e 's/6379/7003/g' -e 's/dir .\//dir \/tmp\/7003\//g' 7003/redis.conf
 
 ```properties
 # redis实例的声明 IP
-replica-announce-ip 192.168.150.101
+replica-announce-ip 192.168.134.128
 ```
 
 
@@ -182,9 +182,9 @@ replica-announce-ip 192.168.150.101
 
 ```sh
 # 逐一执行
-sed -i '1a replica-announce-ip 192.168.150.101' 7001/redis.conf
-sed -i '1a replica-announce-ip 192.168.150.101' 7002/redis.conf
-sed -i '1a replica-announce-ip 192.168.150.101' 7003/redis.conf
+sed -i '1a replica-announce-ip 192.168.134.128' 7001/redis.conf
+sed -i '1a replica-announce-ip 192.168.134.128' 7002/redis.conf
+sed -i '1a replica-announce-ip 192.168.134.128' 7003/redis.conf
 
 # 或者一键修改
 printf '%s\n' 7001 7002 7003 | xargs -I{} -t sed -i '1a replica-announce-ip 192.168.134.128' {}/redis.conf
@@ -259,7 +259,7 @@ printf '%s\n' 7001 7002 7003 | xargs -I{} -t redis-cli -p {} shutdown
 # 连接 7002
 redis-cli -p 7002
 # 执行slaveof
-slaveof 192.168.150.101 7001
+slaveof 192.168.134.128 7001
 ```
 
 
@@ -270,7 +270,7 @@ slaveof 192.168.150.101 7001
 # 连接 7003
 redis-cli -p 7003
 # 执行slaveof
-slaveof 192.168.150.101 7001
+slaveof 192.168.134.128 7001
 ```
 
 
@@ -322,9 +322,9 @@ info replication
 
 | 节点 |       IP        | PORT  |
 | ---- | :-------------: | :---: |
-| s1   | 192.168.150.101 | 27001 |
-| s2   | 192.168.150.101 | 27002 |
-| s3   | 192.168.150.101 | 27003 |
+| s1   | 192.168.134.128 | 27001 |
+| s2   | 192.168.134.128 | 27002 |
+| s3   | 192.168.134.128 | 27003 |
 
 ## 3.2.准备实例和配置
 
@@ -347,8 +347,8 @@ mkdir s1 s2 s3
 
 ```ini
 port 27001
-sentinel announce-ip 192.168.150.101
-sentinel monitor mymaster 192.168.150.101 7001 2
+sentinel announce-ip 192.168.134.128
+sentinel monitor mymaster 192.168.134.128 7001 2
 sentinel down-after-milliseconds mymaster 5000
 sentinel failover-timeout mymaster 60000
 dir "/tmp/s1"
@@ -357,12 +357,10 @@ dir "/tmp/s1"
 解读：
 
 - `port 27001`：是当前sentinel实例的端口
-- `sentinel monitor mymaster 192.168.150.101 7001 2`：指定主节点信息
+- `sentinel monitor mymaster 192.168.134.128 7001 2`：指定主节点信息
   - `mymaster`：主节点名称，自定义，任意写
-  - `192.168.150.101 7001`：主节点的ip和端口
-  - `2`：选举master时的quorum值
-
-
+  - `192.168.134.128 7001`：主节点的ip和端口
+  - `2`：选举master时的quorum值，超过该值触发选举，一般设置为 (N/2) + 1
 
 然后将s1/sentinel.conf文件拷贝到s2、s3两个目录中（在/tmp目录执行下列命令）：
 
@@ -424,8 +422,6 @@ redis-sentinel s3/sentinel.conf
 
 # 4.搭建分片集群
 
-
-
 ## 4.1.集群结构
 
 分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：
@@ -438,12 +434,12 @@ redis-sentinel s3/sentinel.conf
 
 |       IP        | PORT |  角色  |
 | :-------------: | :--: | :----: |
-| 192.168.150.101 | 7001 | master |
-| 192.168.150.101 | 7002 | master |
-| 192.168.150.101 | 7003 | master |
-| 192.168.150.101 | 8001 | slave  |
-| 192.168.150.101 | 8002 | slave  |
-| 192.168.150.101 | 8003 | slave  |
+| 192.168.134.128 | 7001 | master |
+| 192.168.134.128 | 7002 | master |
+| 192.168.134.128 | 7003 | master |
+| 192.168.134.128 | 8001 | slave  |
+| 192.168.134.128 | 8002 | slave  |
+| 192.168.134.128 | 8003 | slave  |
 
 
 
@@ -479,7 +475,7 @@ bind 0.0.0.0
 # 让redis后台运行
 daemonize yes
 # 注册的实例ip
-replica-announce-ip 192.168.150.101
+replica-announce-ip 192.168.134.128
 # 保护模式
 protected-mode no
 # 数据库数量
@@ -575,7 +571,7 @@ Redis5.0之前集群命令都是用redis安装包下的src/redis-trib.rb来实�
 # 进入redis的src目录
 cd /tmp/redis-6.2.4/src
 # 创建集群
-./redis-trib.rb create --replicas 1 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 192.168.150.101:8001 192.168.150.101:8002 192.168.150.101:8003
+./redis-trib.rb create --replicas 1 192.168.134.128:7001 192.168.134.128:7002 192.168.134.128:7003 192.168.134.128:8001 192.168.134.128:8002 192.168.134.128:8003
 ```
 
 
@@ -585,7 +581,7 @@ cd /tmp/redis-6.2.4/src
 我们使用的是Redis6.2.4版本，集群管理以及集成到了redis-cli中，格式如下：
 
 ```sh
-redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 192.168.150.101:8001 192.168.150.101:8002 192.168.150.101:8003
+redis-cli --cluster create --cluster-replicas 1 192.168.134.128:7001 192.168.134.128:7002 192.168.134.128:7003 192.168.134.128:8001 192.168.134.128:8002 192.168.134.128:8003
 ```
 
 命令说明：

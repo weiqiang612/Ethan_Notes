@@ -119,12 +119,12 @@ docker load -i canal.tar
 ```sh
 docker run -p 11111:11111 --name canal \
 -e canal.destinations=heima \
--e canal.instance.master.address=mysql:3306  \
--e canal.instance.dbUsername=canal  \
--e canal.instance.dbPassword=canal  \
+-e canal.instance.master.address=mysql_caffeine:3306 \
+-e canal.instance.dbUsername=canal \
+-e canal.instance.dbPassword=canal \
 -e canal.instance.connectionCharset=UTF-8 \
 -e canal.instance.tsdb.enable=true \
--e canal.instance.gtidon=false  \
+-e canal.instance.gtidon=false \
 -e canal.instance.filter.regex=heima\\..* \
 --network heima \
 -d canal/canal-server:v1.1.5
