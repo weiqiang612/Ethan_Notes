@@ -611,7 +611,7 @@ public class JedisClusterTest {
 
 首先根据slotHash算出来一个partitioned的map，map中的key就是slot，而他的value就是对应的对应相同slot的key对应的数据
 
-通过 RedisFuture<String> mset = super.mset(op);进行异步的消息发送
+通过 `RedisFuture<String> mset = super.mset(op);`进行异步的消息发送
 
 ```Java
 @Override
