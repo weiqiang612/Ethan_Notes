@@ -1,0 +1,36 @@
+{
+  "recentFiles": [
+    {
+      "basename": "Make longer",
+      "path": "copilot/copilot-custom-prompts/Make longer.md"
+    },
+    {
+      "basename": "Generate table of contents",
+      "path": "copilot/copilot-custom-prompts/Generate table of contents.md"
+    },
+    {
+      "basename": "Generate glossary",
+      "path": "copilot/copilot-custom-prompts/Generate glossary.md"
+    },
+    {
+      "basename": "Explain like I am 5",
+      "path": "copilot/copilot-custom-prompts/Explain like I am 5.md"
+    },
+    {
+      "basename": "Clip YouTube Transcript",
+      "path": "copilot/copilot-custom-prompts/Clip YouTube Transcript.md"
+    },
+    {
+      "basename": "Clip Web Page",
+      "path": "copilot/copilot-custom-prompts/Clip Web Page.md"
+    },
+    {
+      "basename": "2026.5.26 TODO",
+      "path": "docs/TODO LIST/2026.5.26 TODO.md"
+    }
+  ],
+  "omittedPaths": [],
+  "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false
+}
