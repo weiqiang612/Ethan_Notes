@@ -1,6 +1,22 @@
 {
   "recentFiles": [
     {
+      "basename": "2. Java新特性",
+      "path": "docs/八股文/1. Java/2. Java新特性.md"
+    },
+    {
+      "basename": "3. Java 基础",
+      "path": "docs/八股文/1. Java/3. Java 基础.md"
+    },
+    {
+      "basename": "1. 八股文准备计划",
+      "path": "docs/八股文/1. Java/1. 八股文准备计划.md"
+    },
+    {
+      "basename": "2. RAG 的探索",
+      "path": "docs/Agent/RAG/2. RAG 的探索.md"
+    },
+    {
       "basename": "Make longer",
       "path": "copilot/copilot-custom-prompts/Make longer.md"
     },
