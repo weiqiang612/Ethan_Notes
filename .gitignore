@@ -5,4 +5,50 @@ node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
 docs/.tmp*
+
+# 临时与草稿目录
+scratch/
+tmp/
+temp/
+
+# 系统垃圾文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE 与编辑器配置
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# AI 助手工具缓存
+.claude/
+.claudian/
+.gemini/
+.copilot/
+.cursor/
+.anthropic/
+
+# Obsidian 本地状态文件
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+.obsidian/sync.json
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
 # 这里的逻辑：局部配置会与你的全局配置合并生效
