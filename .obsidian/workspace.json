@@ -4,21 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "0bb4e86213a84973",
+        "id": "301c0cf8f248ded4",
         "type": "tabs",
         "children": [
           {
-            "id": "c45071db5acd3194",
+            "id": "b9b969869d3b7cd1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "kanban",
               "state": {
-                "file": "docs/八股文/1. Java/2. Java新特性.md",
-                "mode": "source",
-                "source": false
+                "file": "docs/八股文/每日计划/Day-01_2026-05-30.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": []
+                }
               },
-              "icon": "lucide-file",
-              "title": "2. Java新特性"
+              "icon": "lucide-trello",
+              "title": "Day-01_2026-05-30"
             }
           }
         ]
@@ -45,6 +47,21 @@
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
+            }
+          },
+          {
+            "id": "c826934eb9f6025e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/八股文/1. Java/1. 八股文准备计划.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "1. 八股文准备计划 的大纲"
             }
           },
           {
@@ -88,7 +105,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "329697a0f46f90ee",
@@ -168,38 +186,13 @@
               "icon": "calendar-with-checkmark",
               "title": "Calendar"
             }
-          },
-          {
-            "id": "7b0560eb4d706d1b",
-            "type": "leaf",
-            "state": {
-              "type": "claudian-view",
-              "state": {},
-              "icon": "bot",
-              "title": "Claudian"
-            }
-          },
-          {
-            "id": "c826934eb9f6025e",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "docs/八股文/1. Java/2. Java新特性.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "2. Java新特性 的大纲"
-            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 541.5,
     "collapsed": true
   },
   "left-ribbon": {
@@ -214,11 +207,20 @@
       "obsidian-git:Open Git source control": false,
       "omnisearch:Omnisearch": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
-      "realclaudian:Open Claudian": false
+      "realclaudian:Open Claudian": false,
+      "obsidian-kanban:Create new board": false
     }
   },
-  "active": "50e6ed6d92d95130",
+  "active": "b9b969869d3b7cd1",
   "lastOpenFiles": [
+    "docs/八股文/我的简历-OaqiRI (1).pdf",
+    "docs/八股文/0. 面试备战仪表盘.md",
+    "docs/八股文/1. Java/1. 八股文准备计划.md",
+    "docs/八股文/每日计划/Day-01_2026-05-30.md",
+    "docs/八股文/每日计划",
+    "scratch/update_mcp.ps1",
+    "scratch",
+    "docs/八股文/1. Java/2. Java新特性.md",
     "docs/八股文/5. AI 应用开发/5. AI 系统设计.md",
     "docs/八股文/5. AI 应用开发/4. RAG 检索增强生成.md",
     "docs/八股文/5. AI 应用开发/3. AI Agent 与工具调用.md",
@@ -226,7 +228,6 @@
     "docs/八股文/5. AI 应用开发/1. AI 应用开发面试总览.md",
     "docs/八股文/5. AI 应用开发",
     "docs/八股文/1. Java/3. Java 基础.md",
-    "docs/八股文/1. Java/1. 八股文准备计划.md",
     "docs/Agent/RAG/2. RAG 的探索.md",
     "未命名.canvas",
     "未命名.md",
@@ -243,12 +244,8 @@
     "copilot/copilot-custom-prompts/Make shorter.md",
     "copilot/copilot-custom-prompts/Emojify.md",
     "copilot/copilot-custom-prompts/Simplify.md",
-    "copilot/copilot-custom-prompts/Summarize.md",
-    "copilot/copilot-custom-prompts/Translate to Chinese.md",
-    "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
     "copilot/copilot-custom-prompts",
     "copilot",
-    "docs/八股文/1. 八股文准备计划.md",
     "未命名.base"
   ]
 }
