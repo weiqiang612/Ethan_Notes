@@ -38,11 +38,8 @@ desktop.ini
 .cursor/
 .anthropic/
 
-# Obsidian 本地状态文件
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/graph.json
-.obsidian/sync.json
+# Obsidian 个人配置与缓存（彻底忽略以防密钥泄露）
+.obsidian/
 
 # 日志文件
 *.log
