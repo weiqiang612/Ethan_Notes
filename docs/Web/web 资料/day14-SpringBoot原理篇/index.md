@@ -2,4 +2,4 @@
 
 ## 📑 本节目录
 
-- [SpingBoot原理](./SpringBoot%E5%8E%9F%E7%90%86%E7%AF%87.md)
+- 📝 [SpingBoot原理](./SpringBoot%E5%8E%9F%E7%90%86%E7%AF%87.md)

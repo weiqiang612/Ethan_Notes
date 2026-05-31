@@ -18,17 +18,26 @@ def get_display_title(file_path, filename):
     return re.sub(r'^\d+\.\s*', '', base_name)
 
 def generate_indexes(docs_path):
+    ignore_folders = {'.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets'}
+    
     for root, dirs, files in os.walk(docs_path):
-        if '.vitepress' in root or 'public' in root:
-            continue
+        # 1. 过滤 dirs，防止 os.walk 递归进入忽略文件夹
+        dirs[:] = [d for d in dirs if d not in ignore_folders and not d.startswith('.')]
+        
+        # 2. docs 根目录不生成 index.md
         if os.path.abspath(root) == os.path.abspath(docs_path):
             continue
 
         md_files = [f for f in files if f.endswith('.md') and f.lower() != 'index.md']
-        if not md_files:
+        sub_dirs = list(dirs)
+
+        # 3. 既没有直接 md 文件，也没有子目录，就不需要 index.md
+        if not md_files and not sub_dirs:
             continue
 
+        # 4. 对 md 文件和子目录进行自然排序
         md_files.sort(key=natural_sort_key)
+        sub_dirs.sort(key=natural_sort_key)
         
         # --- 核心修改：尝试提取原有简介 ---
         target_index_path = os.path.join(root, 'index.md')
@@ -62,11 +71,21 @@ def generate_indexes(docs_path):
         # 3. 重新生成完整的 index.md
         # 强制使用带图标的标题，方便下次正则匹配
         index_content = prefix_content + "## 📑 本节目录\n\n"
-        for f in md_files:
-            file_path = os.path.join(root, f)
-            display_title = get_display_title(file_path, f)
-            url_encoded_filename = quote(f)
-            index_content += f"- [{display_title}](./{url_encoded_filename})\n"
+        
+        # 写入子目录链接
+        if sub_dirs:
+            for sd in sub_dirs:
+                url_encoded_sd = quote(sd)
+                index_content += f"- 📂 [{sd}](./{url_encoded_sd}/)\n"
+            index_content += "\n"
+
+        # 写入笔记文件链接
+        if md_files:
+            for f in md_files:
+                file_path = os.path.join(root, f)
+                display_title = get_display_title(file_path, f)
+                url_encoded_filename = quote(f)
+                index_content += f"- 📝 [{display_title}](./{url_encoded_filename})\n"
 
         # 4. 写入（'w' 模式覆盖写入）
         with open(target_index_path, 'w', encoding='utf-8') as f:

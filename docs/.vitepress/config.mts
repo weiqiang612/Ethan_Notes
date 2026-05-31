@@ -4,44 +4,54 @@ import path from 'path'
 
 function getSidebar() {
   const docsPath = path.resolve(__dirname, '../')
-  const ignoreFiles = ['.vitepress', 'public', 'index.md', 'api-examples.md', 'markdown-examples.md', 'node_modules']
+  const ignoreFolders = ['.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets']
+  const ignoreFiles = ['index.md', 'api-examples.md', 'markdown-examples.md']
   
   // 1. 定义自然排序函数
   const naturalSort = (a: string, b: string) => {
     return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
   }
 
-  const sidebar: any[] = []
-  const files = fs.readdirSync(docsPath)
+  function scanDir(dirPath: string, relativePath: string = ''): any[] {
+    const items: any[] = []
+    if (!fs.existsSync(dirPath)) return items
 
-  // 文件夹也排一下序
-  files.sort(naturalSort).forEach(file => {
-    const filePath = path.join(docsPath, file)
-    if (fs.statSync(filePath).isDirectory() && !ignoreFiles.includes(file)) {
-      
-      // 2. 获取子文件并应用自然排序
-      const childrenFiles = fs.readdirSync(filePath)
-        .filter(f => f.endsWith('.md') && f.toLowerCase() !== 'index.md')
-      
-      // 执行排序：确保 2. 在 10. 前面
-      childrenFiles.sort(naturalSort)
+    const files = fs.readdirSync(dirPath)
+    files.sort(naturalSort)
 
-      const children = childrenFiles.map(f => ({
-        text: f.replace('.md', ''),
-        link: `/${file}/${f.replace('.md', '')}`
-      }))
+    for (const file of files) {
+      const fullPath = path.join(dirPath, file)
+      const isDir = fs.statSync(fullPath).isDirectory()
+      const currentRelative = relativePath ? `${relativePath}/${file}` : file
+      const webRelativePath = currentRelative.replace(/\\/g, '/')
 
-      if (children.length > 0) {
-        sidebar.push({
-          text: file,
-          link: `/${file}/`,
-          collapsed: false,
-          items: children
-        })
+      if (isDir) {
+        if (ignoreFolders.includes(file) || file.startsWith('.')) {
+          continue
+        }
+        const childItems = scanDir(fullPath, currentRelative)
+        if (childItems.length > 0) {
+          items.push({
+            text: file,
+            collapsed: relativePath === '' ? false : true, // 一级目录展开，二级及以下目录折叠
+            items: childItems,
+            link: `/${webRelativePath}/`
+          })
+        }
+      } else {
+        if (file.endsWith('.md') && !ignoreFiles.includes(file.toLowerCase()) && !file.startsWith('.')) {
+          const nameWithoutExt = file.replace(/\.md$/i, '')
+          items.push({
+            text: nameWithoutExt,
+            link: `/${webRelativePath.replace(/\.md$/i, '')}`
+          })
+        }
       }
     }
-  })
-  return sidebar
+    return items
+  }
+
+  return scanDir(docsPath)
 }
 
 export default defineConfig({

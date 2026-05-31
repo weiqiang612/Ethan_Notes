@@ -2,4 +2,4 @@
 
 ## 📑 本节目录
 
-- [1. Mybatis基础操作](./Mybatis.md)
+- 📝 [1. Mybatis基础操作](./Mybatis.md)

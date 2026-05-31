@@ -4,10 +4,10 @@
 
 ## 📑 本节目录
 
-- [大纲](./1.%20%E6%A6%82%E8%BF%B0.md)
-- [Git常用命令](./2.%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.md)
-- [Git 分支](./3.%20Git%E5%88%86%E6%94%AF.md)
-- [Git团队协作](./4.%20Git%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C.md)
-- [GitHub远程库操作](./5.%20GitHub%E8%BF%9C%E7%A8%8B%E5%BA%93%E6%93%8D%E4%BD%9C.md)
-- [IDEA 集成Git](./6.%20IDEA%E9%9B%86%E6%88%90Git.md)
-- [GitLab](./7.%20GitLab.md)
+- 📝 [大纲](./1.%20%E6%A6%82%E8%BF%B0.md)
+- 📝 [Git常用命令](./2.%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.md)
+- 📝 [Git 分支](./3.%20Git%E5%88%86%E6%94%AF.md)
+- 📝 [Git团队协作](./4.%20Git%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C.md)
+- 📝 [GitHub远程库操作](./5.%20GitHub%E8%BF%9C%E7%A8%8B%E5%BA%93%E6%93%8D%E4%BD%9C.md)
+- 📝 [IDEA 集成Git](./6.%20IDEA%E9%9B%86%E6%88%90Git.md)
+- 📝 [GitLab](./7.%20GitLab.md)

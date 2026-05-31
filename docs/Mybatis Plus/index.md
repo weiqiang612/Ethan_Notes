@@ -4,4 +4,4 @@
 
 ## 📑 本节目录
 
-- [application.yml](./1.%20%E4%BD%BF%E7%94%A8.md)
+- 📝 [application.yml](./1.%20%E4%BD%BF%E7%94%A8.md)

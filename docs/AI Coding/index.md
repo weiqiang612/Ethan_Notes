@@ -4,7 +4,9 @@
 
 ## 📑 本节目录
 
-- [Codex 常用 `/` 命令](./1.%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.md)
-- [自定义Codex日志](./2.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E5%AE%B9.md)
-- [使用技巧](./3.%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.md)
-- [MCP学习笔记](./MCP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
+- 📝 [Codex 常用 `/` 命令](./1.%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.md)
+- 📝 [自定义Codex日志](./2.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E5%AE%B9.md)
+- 📝 [使用技巧](./3.%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.md)
+- 📝 [中转](./4.%20%E4%B8%AD%E8%BD%AC.md)
+- 📝 [AI编程范式调研](./5.%20Vibe%20Coding%2C%20SDD%2C%20Harness%20%E8%B0%83%E7%A0%94.md)
+- 📝 [MCP学习笔记](./MCP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md)
