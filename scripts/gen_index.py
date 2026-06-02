@@ -18,7 +18,7 @@ def get_display_title(file_path, filename):
     return re.sub(r'^\d+\.\s*', '', base_name)
 
 def generate_indexes(docs_path):
-    ignore_folders = {'.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets'}
+    ignore_folders = {'.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets', 'images'}
     
     for root, dirs, files in os.walk(docs_path):
         # 1. 过滤 dirs，防止 os.walk 递归进入忽略文件夹

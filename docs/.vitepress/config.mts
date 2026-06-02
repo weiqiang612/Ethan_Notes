@@ -4,7 +4,7 @@ import path from 'path'
 
 function getSidebar() {
   const docsPath = path.resolve(__dirname, '../')
-  const ignoreFolders = ['.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets']
+  const ignoreFolders = ['.vitepress', 'public', 'node_modules', '.git', '.idea', '.obsidian', '.tmp.driveupload', 'assets', 'images']
   const ignoreFiles = ['index.md', 'api-examples.md', 'markdown-examples.md']
   
   // 1. 定义自然排序函数
