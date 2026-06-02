@@ -1373,7 +1373,7 @@ CSS盒子模型，其实和日常生活中的包装盒是非常类似的，就�
 
 以video标签为例:
 
-![html](assets/html.gif)
+<!-- ![html](assets/html.gif) -->
 
 
 
@@ -1381,4 +1381,4 @@ CSS盒子模型，其实和日常生活中的包装盒是非常类似的，就�
 
 以padding属性为例:
 
-![css](assets/css.gif) 
+<!-- ![css](assets/css.gif) -->
