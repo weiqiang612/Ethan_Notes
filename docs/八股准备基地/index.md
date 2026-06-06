@@ -11,5 +11,7 @@
 - 📂 [4. MySQL 与数据库](./4.%20MySQL%20%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/)
 - 📂 [5. AI Agent 架构](./5.%20AI%20Agent%20%E6%9E%B6%E6%9E%84/)
 - 📂 [6. RAG 检索架构](./6.%20RAG%20%E6%A3%80%E7%B4%A2%E6%9E%B6%E6%9E%84/)
+- 📂 [7. Java 并发编程](./7.%20Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/)
+- 📂 [8. 拷问记录](./8.%20%E6%8B%B7%E9%97%AE%E8%AE%B0%E5%BD%95/)
 
 - 📝 [🤖 八股备战基地 Agent 协同接管指南 (Agent Handoff Guide)](./AGENTS.md)
