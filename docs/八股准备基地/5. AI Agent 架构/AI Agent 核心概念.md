@@ -52,7 +52,7 @@ AI Agent 的核心可以用两个经典公式来定义和拆解：
 > **面试官提问口径**：“你在项目中是怎么理解和应用 AI Agent 架构的？遇到了什么痛点，如何解决？”
 
 **我的高分回答口径**：
-“在我的【[苍穹外卖AI客服](file:///c:/Users/Ethan/Desktop/笔记/docs/八股准备基地/0.%20项目复盘/苍穹外卖AI客服.md)】项目中，我基于 `Spring AI` 落地了完整的 Agent 架构。我对于 Agent 的理解是：它是 LLM、上下文管理与外部工具的闭环实体。
+“在我的【[苍穹外卖AI客服](../0.%20项目复盘/苍穹外卖AI客服.md)】项目中，我基于 `Spring AI` 落地了完整的 Agent 架构。我对于 Agent 的理解是：它是 LLM、上下文管理与外部工具的闭环实体。
 我们核心是通过 **Spring AI Advisor 链** 组装了 Agent 运行的主循环（Agent Loop）。在这套架构中，我们深刻体会到 **Context Engineering（上下文工程）比 Prompt 工程更难也更核心**：
 为了控制 Token 消耗并降低大模型的工具幻觉，我们设计了**两级工具过滤与计算模型**（基于 `UserContextAdvisor` 提取意图动态下发允许的工具白名单，而不是把所有 API 喂给大模型）。
 此外，为了防范 Agent Loop 的工具死循环，我们在最尾部装配了自研的 `SafeToolCallAdvisor`，通过为大模型生成的工具参数签名（Signature）做缓存，当发现**重复签名**或**工具链运行超过 4 轮**时进行强行 fallback 短路截断，从而把一个动态不可控的 Agent Loop 变为了工程上可用、确定性极强的生产级系统。”

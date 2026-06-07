@@ -15,3 +15,4 @@
 - 📂 [8. 拷问记录](./8.%20%E6%8B%B7%E9%97%AE%E8%AE%B0%E5%BD%95/)
 
 - 📝 [🤖 八股备战基地 Agent 协同接管指南 (Agent Handoff Guide)](./AGENTS.md)
+- 📝 [🎯 简历驱动型·八股复习战略计划](./%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92.md)
