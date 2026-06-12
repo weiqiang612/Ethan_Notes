@@ -1,7 +1,7 @@
 ---
 grill_count: 1
-last_grilled: "2026-06-06"
-last_grill_score: 92
+last_grilled: "2026-06-10"
+last_grill_score: 78
 priority: 1
 ---
 
