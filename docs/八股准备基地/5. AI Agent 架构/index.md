@@ -3,6 +3,7 @@
 ## 📑 本节目录
 
 - 📝 [AI Agent 核心概念](./AI%20Agent%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5.md)
+- 📝 [Spring AI Agent 知识卡片（简历版）](./Spring%20AI%20Agent%20%E7%9F%A5%E8%AF%86%E5%8D%A1%E7%89%87%EF%BC%88%E7%AE%80%E5%8E%86%E7%89%88%EF%BC%89.md)
 - 📝 [AI Agent 记忆系统](./AI%20Agent%20%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F.md)
 - 📝 [Harness Engineering](./Harness%20Engineering.md)
 - 📝 [MCP 协议](./MCP%20%E5%8D%8F%E8%AE%AE.md)

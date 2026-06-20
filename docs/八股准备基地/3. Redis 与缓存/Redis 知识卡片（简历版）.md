@@ -248,6 +248,37 @@ priority: 1
 - 面试里要会说：
 - 为什么不只做单机限流
 - 为什么 Redis 适合做分布式限流
+- HTTP AOP 限流：
+- 自定义限流注解
+- AOP 拦截 Controller 或接口方法
+- 根据用户、接口、IP、租户拼接限流 key
+- 调 Redisson 滑动窗口判断当前窗口请求数
+- 超过阈值直接返回限流响应
+- 不进入后续业务逻辑
+- WebSocket 限流：
+- WebSocket 没有传统 HTTP 请求生命周期
+- 通常在消息入口做拦截
+- 每条消息按用户维度或会话维度计数
+- 超过阈值返回错误消息
+- 或关闭连接 / 降级提示
+- 为什么用 Redisson 滑动窗口：
+- 单机计数只能限制当前节点
+- 多实例部署下会失效
+- Redis 是共享状态
+- Redisson 封装分布式计数和过期窗口
+- 滑动窗口比固定窗口更平滑
+- 不容易在窗口边界被突刺打穿
+- key 设计：
+- HTTP 可以是 `rate:http:{userId}:{uri}`
+- WebSocket 可以是 `rate:ws:{userId}:{sessionId}` 或 `rate:ws:{userId}:{scene}`
+- 管理端接口可以加角色或租户维度
+- 超限返回：
+- HTTP 返回统一错误码
+- 比如 `429 Too Many Requests`
+- WebSocket 返回限流消息
+- 比如 `操作太频繁，请稍后再试`
+- 记一句：
+- `HTTP 限流拦接口，WebSocket 限流拦消息，Redis 负责多实例共享计数`
 
 ## 18. 结合你项目必须会落的 Redis 口径
 
